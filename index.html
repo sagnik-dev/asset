@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080b12" />
+    <title>ASSET | Autonomous Software Engineering &amp; Testing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="page-shell">
+        <!-- TOPBAR NAVIGATION & PROMINENT BRANDING -->
+        <header class="topbar">
+            <a class="brand" href="./" aria-label="ASSET home">
+                <span class="brand-mark">ASSET</span>
+                <span class="brand-text">
+                    <strong>AUTONOMOUS SOFTWARE ENGINEERING &amp; TESTING</strong>
+                    <small>Local-First Code Intelligence &amp; Test Engineering</small>
+                </span>
+            </a>
+            <div class="topbar-status-group">
+                <div class="topbar-note">
+                    <span class="status-dot"></span>
+                    <span>LOCAL ANALYSIS ENGINE READY</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- INTRO & 4-STAGE PIPELINE STEPPER -->
+            <section class="intro">
+
+                <h1><em>Turn a codebase into grounded engineering intelligence.</em></h1>
+                <p class="intro-copy">
+                    Upload a source folder. Local Qwen analysis builds a grounded project profile, then derives GitHub
+                    searches from that analysis before comparing actual source code.
+                </p>
+            </section>
+
+            <!-- WORKSPACE SPLIT (01 STAGE LEFT, 02-04 STAGES RIGHT) -->
+            <section class="workspace" aria-label="ASSET code intelligence workbench">
+
+                <!-- STAGE 01: CONTROL PANEL -->
+                <aside class="control-panel">
+                    <div class="stage-tag">
+                        <span class="stage-num">A</span>
+                        <span class="stage-title">STAGE 01 / INPUT</span>
+                    </div>
+
+                    <div class="panel-heading">
+                        <span class="section-number">A</span>
+                        <h2>Source material</h2>
+                    </div>
+
+                    <!-- UPLOAD DROPZONE -->
+                    <label class="dropzone" id="dropzone" for="source-folder">
+                        <input id="source-folder" type="file" webkitdirectory directory multiple />
+                        <div class="upload-badge">
+                            <span class="upload-icon" aria-hidden="true">↑</span>
+                        </div>
+                        <strong class="dropzone-title">Drop project folder here</strong>
+                        <span class="dropzone-sub">or click to choose a directory from your computer</span>
+
+                        <div class="dropzone-tags">
+                            <span class="fmt-tag">.js</span>
+                            <span class="fmt-tag">.ts</span>
+                            <span class="fmt-tag">.py</span>
+                            <span class="fmt-tag">.go</span>
+                            <span class="fmt-tag">.json</span>
+                            <span class="fmt-tag">.rs</span>
+                        </div>
+
+                        <span class="dropzone-security">FILES ARE READ IN YOUR BROWSER SANDBOX ONLY</span>
+                    </label>
+
+                    <!-- MEMORY LIMITATION ADVISORY -->
+                    <div class="memory-advisory">
+                        <div class="advisory-icon">⚠</div>
+                        <div class="advisory-text">
+                            <strong>Memory Advisory:</strong> For memory-constrained environments, analyze up to 3
+                            focused files per request.
+                        </div>
+                    </div>
+
+                    <!-- SELECTED FILE SUMMARY -->
+                    <div class="file-summary" id="file-summary" hidden>
+                        <div>
+                            <span class="summary-label">SELECTED SOURCE</span>
+                            <strong id="file-count">0 files</strong>
+                        </div>
+                        <button class="text-button" id="clear-files" type="button">Clear</button>
+                    </div>
+                    <div class="source-list" id="source-list"></div>
+
+                    <!-- SETTINGS BLOCK (OLLAMA & MODEL) -->
+                    <div class="settings-block">
+                        <div class="panel-heading">
+                            <span class="section-number">B</span>
+                            <h2>LOCAL MODEL CONFIG</h2>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="field-label" for="ollama-url">OLLAMA ENDPOINT</label>
+                            <input class="text-input mono" id="ollama-url" value="http://localhost:11434"
+                                spellcheck="false" />
+                        </div>
+
+                        <div class="input-group">
+                            <label class="field-label" for="model-name">MODEL NAME</label>
+                            <input class="text-input mono" id="model-name" value="qwen2.5-coder:7b"
+                                spellcheck="false" />
+                        </div>
+
+                        <p class="field-hint">The backend uses this local Ollama endpoint and model. Uploaded code is
+                            not executed.</p>
+                    </div>
+
+                    <!-- PRIMARY ACTION -->
+                    <button class="generate-button" id="analyze-button" type="button" disabled>
+                        <span class="btn-content">
+                            <span>ANALYZE PROJECT</span>
+                        </span>
+                        <span class="button-arrow">↗</span>
+                    </button>
+
+                    <div class="privacy-note">
+                        <span class="privacy-bullet">●</span>
+                        <span>Source files go only to local Ollama and the local ASSET backend.</span>
+                    </div>
+                </aside>
+
+                <!-- STAGE 02, 03, 04 RESULTS PANEL -->
+                <section class="results-panel" aria-live="polite">
+
+                    <!-- STAGE 02: GROUNDED SYSTEM DECOMPOSITION -->
+                    <div class="stage-block-header">
+                        <div class="stage-tag">
+                            <span class="stage-num">02 / OUTPUT</span>
+                            <span class="stage-title">GROUNDED SYSTEM DECOMPOSITION</span>
+                        </div>
+                        <span class="output-stamp">NOT RUN</span>
+                    </div>
+
+                    <div class="results-header">
+                        <div>
+                            <h2 id="results-title">Your analysis<br /><em>will appear here.</em></h2>
+                        </div>
+                    </div>
+
+                    <!-- EMPTY STATE -->
+                    <div class="empty-state" id="empty-state">
+                        <div class="empty-orbit">
+                            <span class="orbit-symbol">◎</span>
+                        </div>
+                        <p>Choose a source folder to begin.<br />The result stays grounded in your uploaded code
+                            off-device.</p>
+                        <div class="empty-steps-hint">
+                            <span class="hint-pill">1. Parse AST</span>
+                            <span class="hint-arrow">→</span>
+                            <span class="hint-pill">2. Identify Test Surfaces</span>
+                            <span class="hint-arrow">→</span>
+                            <span class="hint-pill">3. Map Invariants</span>
+                        </div>
+                    </div>
+
+                    <!-- LOADING STATE -->
+                    <div class="loading-state" id="loading-state" hidden>
+                        <div class="loader-line"></div>
+                        <p id="loading-message">Reading source files…</p>
+                        <small>Local Qwen analysis in progress. Parsing ASTs and extracting invariants…</small>
+                    </div>
+
+                    <!-- ERROR STATE -->
+                    <div class="error-state" id="error-state" hidden>
+                        <div class="error-badge">ERROR</div>
+                        <strong>Could not generate the strategy.</strong>
+                        <p id="error-message"></p>
+                        <button class="text-button" id="dismiss-error" type="button">Dismiss</button>
+                    </div>
+
+                    <!-- STRATEGY OUTPUT CONTAINER (DYNAMIC JS INJECTION) -->
+                    <div class="strategy-output" id="analysis-output" hidden></div>
+
+                    <!-- STAGE 03: GITHUB DISCOVERY -->
+                    <div class="execution-panel" id="github-panel">
+                        <div class="execution-heading">
+                            <div class="stage-tag">
+                                <span class="stage-num">03 / GITHUB DISCOVERY</span>
+                                <span class="stage-title">AUTOMATED REPOSITORY SEARCH</span>
+                            </div>
+                            <span class="output-stamp">ANALYSIS → SEARCH</span>
+                        </div>
+
+                        <h3>Analysis-driven GitHub references</h3>
+                        <p class="field-hint" id="rate-limit">
+                            After project analysis, Qwen generates focused discovery queries and the backend searches
+                            the public GitHub API automatically. Repository source is retrieved only when you compare.
+                        </p>
+
+                        <!-- DYNAMIC LIST OF REPOSITORY CARDS -->
+                        <div class="repository-list" id="repository-list"></div>
+
+                        <button class="generate-button run-button" id="compare-button" type="button" disabled>
+                            <span>COMPARE SELECTED ACTUAL SOURCE</span>
+                            <span class="button-arrow">↗</span>
+                        </button>
+                    </div>
+
+                    <!-- STAGE 04: SOURCE COMPARISON DOCK -->
+                    <div class="comparison-stage-dock">
+                        <div class="execution-heading">
+                            <div class="stage-tag">
+                                <span class="stage-num">04 / SOURCE COMPARISON</span>
+                                <span class="stage-title">VERIFIED EVIDENCE &amp; DIFFERENTIAL BENCHMARK</span>
+                            </div>
+                            <span class="output-stamp">PENDING STEP 03</span>
+                        </div>
+
+                        <h3 class="stage-04-title">Actual source verification</h3>
+                        <p class="stage-04-copy">
+                            Ground-truth differential tests match downloaded ASTs against local target tests. Awaits
+                            selection of GitHub reference candidates.
+                        </p>
+                    </div>
+
+                </section>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-left">
+                <span class="footer-brand">ASSET</span>
+                <span class="footer-sep">/</span>
+                <span>LOCAL-FIRST WORKBENCH</span>
+            </div>
+            <div class="footer-center">
+                <span class="status-dot"></span>
+                <span>STAGE 1: READY</span>
+                <span class="footer-sep">•</span>
+                <span>STAGE 2: IDLE</span>
+                <span class="footer-sep">•</span>
+                <span>STAGE 3: LOCKED</span>
+                <span class="footer-sep">•</span>
+                <span>STAGE 4: LOCKED</span>
+            </div>
+            <div class="footer-right">
+                <span>ACTUAL SOURCE · GITHUB API · EVIDENCE VERIFICATION</span>
+            </div>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

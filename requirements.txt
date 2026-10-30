@@ -1,0 +1,2 @@
+# ASSET uses Python standard library only.
+# Ollama and GitHub are accessed through local/HTTPS APIs.
